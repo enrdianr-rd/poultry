@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poultry Order Scheduler</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+
+  <!-- jsPDF & AutoTable -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@latest/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable"></script>
+
+  <!-- SheetJS for Excel export -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button id="savePdf">Save to PDF</button>
+    <button id="exportExcel">Export to Excel</button>
+  </div>
+
+  <div class="container">
+    <h1>🐔 Poultry Order Scheduler</h1>
+    <label for="today">Select Today's Date:</label>
+    <input type="date" id="today"/>
+
+    <table class="input-table">
+      <thead>
+        <tr>
+          <th>Item</th><th>Expiry Batches</th><th>Mon</th><th>Wed</th><th>Fri</th><th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Poultry Items -->
+        <tr><td>Whole Pack</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Whole Twin Pack</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Chicken Legs Back Attached VP</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Chicken Wings VP</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Chicken Breast VP</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Chicken Back Attached VP</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Chicken Legs VP</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Chicken Thighs VP</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Chicken Thighs Skinless VP</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Chicken Wings</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Chicken Legs</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Chicken Thighs</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Non-Compliments Chicken Thighs Skinless</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Chicken Breast</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Non-Compliments Chicken Breast</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+        <tr><td>Chicken Quarter Legs</td><td><div class="expiry-list"></div><button class="add-expiry">+ Batch</button></td><td><input type="number" class="day-input" data-day="Monday"/></td><td><input type="number" class="day-input" data-day="Wednesday"/></td><td><input type="number" class="day-input" data-day="Friday"/></td><td><input type="number" class="total-input"/></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

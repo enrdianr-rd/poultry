@@ -1,0 +1,29 @@
+document.getElementById("orderForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const productName = document.getElementById("productName").value.trim();
+  const weeklyGoal = parseInt(document.getElementById("weeklyGoal").value);
+  const currentStock = parseInt(document.getElementById("currentStock").value);
+
+  const days = ["Monday", "Wednesday", "Friday"];
+  const totalNeed = weeklyGoal - currentStock;
+
+  let output = `<h3>${productName}</h3>`;
+
+  if (totalNeed <= 0) {
+    output += `<p>No need to order this week. You have enough stock.</p>`;
+  } else {
+    const baseQty = Math.floor(totalNeed / days.length);
+    let remainder = totalNeed % days.length;
+
+    output += `<p>You need to order <strong>${totalNeed}</strong> more case${totalNeed !== 1 ? "s" : ""} this week:</p><ul>`;
+    days.forEach(day => {
+      const qty = baseQty + (remainder > 0 ? 1 : 0);
+      remainder--;
+      output += `<li><strong>${day}:</strong> Order ${qty} case${qty !== 1 ? "s" : ""}</li>`;
+    });
+    output += `</ul>`;
+  }
+
+  document.getElementById("result").innerHTML = output;
+});
